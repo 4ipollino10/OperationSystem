@@ -25,7 +25,6 @@ void* threadFoo(void* arg){
 
 int main() {
     pthread_t thread;
-    
 	int status = pthread_create(&thread, NULL, threadFoo, NULL);
 
     if (status != SUCCESSFUL_THREAD_CREATION_CODE) {
