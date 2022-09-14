@@ -4,37 +4,44 @@
 
 #define FAILED_THREAD_CREATION -1
 #define FAILED_THREAD_JOINING -1
+#define MAX_STR_COUNTER 10
+#define SUCCESSFUL_THREAD_CREATION_CODE 0
+#define SUCCESSFUL_THREAD_JOINING_CODE 0
+#define CHILD_THREAD_STR "child"
+#define PARENT_THREAD_STR "parent"
+#define FAILED_THREAD_CREATION_ERROR_TEXT "failed to create thread\n"
+#define FAILED_THREAD_JOINING_ERROR_TEXT "failed to join thread\n"
 
-
-void* printStrings(void *args) {
-    for (int i = 10; i > 0; --i) {
-        printf("child thread: %d\n", i);
+void printStrings(char* str) {
+    for (int i = 0; i < MAX_STR_COUNTER; ++i) {
+        printf("%s %d\n", str, i);
     }
-	
-    pthread_exit((void*)1);
+}
+
+void* threadFoo(void* arg){
+    printStrings(CHILD_THREAD_STR);
+    pthread_exit(NULL);
 }
 
 int main() {
     pthread_t thread;
     
-	int status = pthread_create(&thread, NULL, printStrings, NULL);
+	int status = pthread_create(&thread, NULL, threadFoo, NULL);
 
-    if (status) {
-        printf(stderr, "failed to create thread\n");
+    if (status != SUCCESSFUL_THREAD_CREATION_CODE) {
+        printf(stderr, FAILED_THREAD_CREATION_ERROR_TEXT);
         exit(FAILED_THREAD_CREATION);
     }
 
     void* status_addr;
     status = pthread_join(thread, &status_addr);
 
-    if (status) {
-        printf(stderr, "failed to join thread\n");
+    if (status != SUCCESSFUL_THREAD_JOINING_CODE) {
+        printf(stderr, FAILED_THREAD_JOINING_ERROR_TEXT);
         exit(FAILED_THREAD_JOINING);
     }
 
-    for (int i = 10; i > 0; --i) {
-        printf("parent thread: %d\n", i);
-    }
+    printStrings(PARENT_THREAD_STR)
 
     return 0;
 }
