@@ -17,7 +17,7 @@ void* printStrings(void *args) {
 int main() {
     pthread_t thread;
     
-	int status = pthread_create(&thread, NULL, printStrings, NULL);
+    int status = pthread_create(&thread, NULL, printStrings, NULL);
 
     if (status) {
         printf(stderr, "failed to create thread\n");
