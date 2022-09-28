@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-#define FAILED_THREAD_CREATION -1
-#define FAILED_THREAD_JOINING -1
+#define FAILED_THREAD_CREATION_CODE -1
+#define FAILED_THREAD_JOINING_CODE -1
 #define MAX_STR_COUNTER 10
 #define SUCCESSFUL_THREAD_CREATION_CODE 0
 #define SUCCESSFUL_THREAD_JOINING_CODE 0
@@ -29,7 +29,7 @@ int main() {
 
     if (status != SUCCESSFUL_THREAD_CREATION_CODE) {
         printf(stderr, FAILED_THREAD_CREATION_ERROR_TEXT);
-        exit(FAILED_THREAD_CREATION);
+        exit(FAILED_THREAD_CREATION_CODE);
     }
 
     void* status_addr;
@@ -37,7 +37,7 @@ int main() {
 
     if (status != SUCCESSFUL_THREAD_JOINING_CODE) {
         printf(stderr, FAILED_THREAD_JOINING_ERROR_TEXT);
-        exit(FAILED_THREAD_JOINING);
+        exit(FAILED_THREAD_JOINING_CODE);
     }
 
     printStrings(PARENT_THREAD_STR)
