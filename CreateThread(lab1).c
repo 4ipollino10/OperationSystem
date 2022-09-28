@@ -26,7 +26,7 @@ int main() {
     int status = pthread_create(&thread, NULL, threadFoo, NULL);
 
     if (status != SUCCESSFUL_THREAD_CREATION_CODE) {
-        printf(stderr, FAILED_THREAD_CREATION_ERROR_TEXT);
+        fprintf(stderr, FAILED_THREAD_CREATION_ERROR_TEXT);
         exit(FAILED_THREAD_CREATION);
     }
     

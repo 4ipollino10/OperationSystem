@@ -28,7 +28,7 @@ int main() {
 	int status = pthread_create(&thread, NULL, threadFoo, NULL);
 
     if (status != SUCCESSFUL_THREAD_CREATION_CODE) {
-        printf(stderr, FAILED_THREAD_CREATION_ERROR_TEXT);
+        fprintf(stderr, FAILED_THREAD_CREATION_ERROR_TEXT);
         exit(FAILED_THREAD_CREATION_CODE);
     }
 
@@ -36,11 +36,11 @@ int main() {
     status = pthread_join(thread, &status_addr);
 
     if (status != SUCCESSFUL_THREAD_JOINING_CODE) {
-        printf(stderr, FAILED_THREAD_JOINING_ERROR_TEXT);
+        fprintf(stderr, FAILED_THREAD_JOINING_ERROR_TEXT);
         exit(FAILED_THREAD_JOINING_CODE);
     }
 
-    printStrings(PARENT_THREAD_STR)
+    printStrings(PARENT_THREAD_STR);
 
     return 0;
 }
