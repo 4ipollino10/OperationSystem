@@ -20,7 +20,7 @@ void printStrings(char* str) {
 
 void* threadFoo(void* arg){
     printStrings(CHILD_THREAD_STR);
-    pthread_exit(NULL);
+    return NULL;
 }
 
 int main() {
