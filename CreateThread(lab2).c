@@ -9,8 +9,6 @@
 #define SUCCESSFUL_THREAD_JOINING_CODE 0
 #define CHILD_THREAD_STR "child"
 #define PARENT_THREAD_STR "parent"
-#define FAILED_THREAD_CREATION_ERROR_TEXT "failed to create thread\n"
-#define FAILED_THREAD_JOINING_ERROR_TEXT "failed to join thread\n"
 
 void printStrings(char* str) {
     for (int i = 0; i < MAX_STR_COUNTER; ++i) {
@@ -28,7 +26,7 @@ int main() {
 	int status = pthread_create(&thread, NULL, threadFoo, NULL);
 
     if (status != SUCCESSFUL_THREAD_CREATION_CODE) {
-        fprintf(stderr, FAILED_THREAD_CREATION_ERROR_TEXT);
+        fprintf(stderr, "Failed to create thread %d: %s \n", status, strerror(status));
         exit(FAILED_THREAD_CREATION_CODE);
     }
 
@@ -36,7 +34,7 @@ int main() {
     status = pthread_join(thread, &status_addr);
 
     if (status != SUCCESSFUL_THREAD_JOINING_CODE) {
-        fprintf(stderr, FAILED_THREAD_JOINING_ERROR_TEXT);
+        fprintf(stderr, "Failed to join thread %d: %s\n", status, strerror(status));
         exit(FAILED_THREAD_JOINING_CODE);
     }
 
