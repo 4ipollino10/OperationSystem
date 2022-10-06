@@ -12,21 +12,39 @@
 #define SUCCESSFUL_THREAD_CREATION_CODE 0
 #define SUCCESSFUL_THREAD_JOINING_CODE 0 
 
-void* ThreadFoo(void* args){
-    for(void* i = 0; i < args + 1; ++i){
+typedef struct args {
+  int threadIndex;
+} args;
+
+void* ThreadFoo(void* arg){
+    args* threadArgs = (args*) arg;
+
+    for(int i = 0; i < threadArgs[i].threadIndex; ++i){
         prinf(THREAD_STRING);
     }
     prinf("\n");
     return NULL;
 }
 
+void initArgs(args* threadArgs){
+    for(int i = 0; i < MAX_THREADS_COUNTER; ++i){
+        threadArgs[i].threadIndex = i;
+    }
+}
+
+
+
 int main(){
     pthread_t threads[MAX_THREADS_COUNTER];
+    
+    args threadArgs[MAX_THREADS_COUNTER];
 
     int status;
 
+    initArgs(threadArgs);
+
     for(long i = 0; i < MAX_THREADS_COUNTER; ++i){
-        status = pthread_create(&threads[i], NULL, ThreadFoo, (void*)i);
+        status = pthread_create(&threads[i], NULL, ThreadFoo, (void*)threadArgs[i]);
 
         if(status != SUCCESSFUL_THREAD_CREATION_CODE){
             fprintf(stderr, "Failed to create thread, errnum = %d: %s", status, strerror(status));
