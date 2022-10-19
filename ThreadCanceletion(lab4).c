@@ -4,18 +4,20 @@
 #include <string.h>
 
 #define TRUE_STATMENT 1
-#define THERAD_STR "I'm alive!"
+#define THERAD_STR "Child thread\n"
 #define SLEEP_TIME 2
 
-#define PARENT_THREAD_STR1 "Fine, I'll do it myself!"
-#define PARENT_THREAD_STR2 "I did it!"
+#define PARENT_THREAD_STR1 "Starting cancellation\n"
+#define PARENT_THREAD_STR2 "Child thread has been cancelled\n"
 
 #define SUCCSESSFULL_THREAD_CREATION_CODE 0
+#define SUCCSESSFULL_THREAD_JOINING_CODE 0
 #define SUCCSESSFULL_THREAD_CANCELATION_CODE 0
 #define SUCCSESSFULL_PROGRAM_COMPLETION_CODE 0
 
 #define FAILED_THREAD_CREATION_EXIT_CODE -1
 #define FAILED_THREAD_CANCELATION_EXIT_CODE -1
+#define FAILED_THREAD_JOINING_EXIT_CODE -1
 
 
 
@@ -45,7 +47,21 @@ int main(){
         fprintf(stderr, "Failed to cancel thread, status: %d, error: %s\n", status, strerror(status));
         exit(FAILED_THREAD_CANCELATION_EXIT_CODE);
     }
-
+	
+	void* retVal;
+	
+	status = pthread_join(thread, retVal);
+	
+	if(status != SUCCSESSFULL_THREAD_JOINING_CODE){
+		fprintf(stderr, "Failed to join thread, status: %d, error: %s\n", status, strerror(status));
+		exit(FAILED_THREAD_JOINING_EXIT_CODE);
+	}
+	
+	if(retVal != PTHREAD_CANCELLED){
+		fprintf(stderr, "Thread wasn't cancelled by pthread_cancel()");
+		exit(FAILED_THREAD_CANCELATION_EXIT_CODE);
+	}
+	
     printf(PARENT_THREAD_STR2);
     
     exit(SUCCSESSFULL_PROGRAM_COMPLETION_CODE);

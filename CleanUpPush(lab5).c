@@ -13,12 +13,12 @@
 #define FAILED_THREAD_JOINING_EXIT_CODE -1
 
 #define TRUE_STATMENT 1
-#define THERAD_STR "I'm alive!\n"
+#define THERAD_STR "Child thread\n"
 #define THREAD_TERIMATING_STR "Thread %lu is terminated\n"
 #define SLEEP_TIME 2
 
-#define PARENT_THREAD_STR1 "Fine, I'll do it myself!\n"
-#define PARENT_THREAD_STR2 "I did it!\n"
+#define PARENT_THREAD_STR1 "Starting cancellation\n"
+#define PARENT_THREAD_STR2 "Child thread has been cancelled\n"
 
 void onExit(void* args){
     printf(THREAD_TERIMATING_STR, pthread_self());
