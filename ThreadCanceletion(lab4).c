@@ -52,8 +52,6 @@ int main(){
     void* retVal;
 	
     status = pthread_join(thread, &retVal);
-
-    status = pthread_join(thread, retVal);
 	
     if(status != SUCCSESSFULL_THREAD_JOINING_CODE){
 	fprintf(stderr, "Failed to join thread, status: %d, error: %s\n", status, strerror(status));
