@@ -48,19 +48,19 @@ int main(){
         exit(FAILED_THREAD_CANCELATION_EXIT_CODE);
     }
 	
-	void* retVal;
+    void* retVal;
 	
-	status = pthread_join(thread, retVal);
+    status = pthread_join(thread, retVal);
 	
-	if(status != SUCCSESSFULL_THREAD_JOINING_CODE){
-		fprintf(stderr, "Failed to join thread, status: %d, error: %s\n", status, strerror(status));
-		exit(FAILED_THREAD_JOINING_EXIT_CODE);
-	}
+    if(status != SUCCSESSFULL_THREAD_JOINING_CODE){
+	fprintf(stderr, "Failed to join thread, status: %d, error: %s\n", status, strerror(status));
+	exit(FAILED_THREAD_JOINING_EXIT_CODE);
+    }
 	
-	if(retVal != PTHREAD_CANCELLED){
-		fprintf(stderr, "Thread wasn't cancelled by pthread_cancel()");
-		exit(FAILED_THREAD_CANCELATION_EXIT_CODE);
-	}
+    if(retVal != PTHREAD_CANCELLED){
+	fprintf(stderr, "Thread wasn't cancelled by pthread_cancel()");
+	exit(FAILED_THREAD_CANCELATION_EXIT_CODE);
+    }
 	
     printf(PARENT_THREAD_STR2);
     
