@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
+#include <unistd.h>
 
 #define SUCCSESSFULL_THREAD_CREATION_CODE 0
 #define SUCCSESSFULL_THREAD_CANCELATION_CODE 0
@@ -13,7 +14,7 @@
 #define FAILED_THREAD_JOINING_EXIT_CODE -1
 
 #define TRUE_STATMENT 1
-#define THERAD_STR "Child thread\n"
+#define THREAD_STR "Child thread\n"
 #define THREAD_TERIMATING_STR "Thread %lu is terminated\n"
 #define SLEEP_TIME 2
 
@@ -36,16 +37,16 @@ void* threadFoo(void* args){
 int main(){
     pthread_t thread;
 
-    int status = pthread_create(&thread, NULL, threadFoo, NULL)
+    int status = pthread_create(&thread, NULL, threadFoo, NULL);
 
     if(status != SUCCSESSFULL_THREAD_CREATION_CODE){
         fprintf(stderr, "Failed to create thread, status: %d, error: %s\n", status, strerror(status));
         exit(FAILED_THREAD_CREATION_EXIT_CODE);
     }
 
-    printf(PARENT_THREAD_STR1);
-
     sleep(SLEEP_TIME);
+
+    printf(PARENT_THREAD_STR1);
 
     status = pthread_cancel(thread);
 

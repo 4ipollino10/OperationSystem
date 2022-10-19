@@ -2,9 +2,10 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #define TRUE_STATMENT 1
-#define THERAD_STR "Child thread\n"
+#define THREAD_STR "Child thread\n"
 #define SLEEP_TIME 2
 
 #define PARENT_THREAD_STR1 "Starting cancellation\n"
@@ -50,14 +51,14 @@ int main(){
 	
 	void* retVal;
 	
-	status = pthread_join(thread, retVal);
+	status = pthread_join(thread, &retVal);
 	
 	if(status != SUCCSESSFULL_THREAD_JOINING_CODE){
 		fprintf(stderr, "Failed to join thread, status: %d, error: %s\n", status, strerror(status));
 		exit(FAILED_THREAD_JOINING_EXIT_CODE);
 	}
 	
-	if(retVal != PTHREAD_CANCELLED){
+	if(retVal != PTHREAD_CANCELED){
 		fprintf(stderr, "Thread wasn't cancelled by pthread_cancel()");
 		exit(FAILED_THREAD_CANCELATION_EXIT_CODE);
 	}
