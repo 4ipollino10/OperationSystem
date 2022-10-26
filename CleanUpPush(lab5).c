@@ -29,6 +29,7 @@ void* threadFoo(void* args){
     pthread_cleanup_push(onExit, NULL);
     while(TRUE_STATMENT){
         printf(THREAD_STR);
+        pthread_testcancle();
     }
     pthread_cleanup_pop();
     pthread_exit(0);
@@ -55,11 +56,18 @@ int main(){
         exit(FAILED_THREAD_CANCELATION_EXIT_CODE);
     }
 
-    status = pthread_join(thread, NULL);
+    void* retval;
+
+    status = pthread_join(thread, &retval);
 
     if(status != SUCCESSFUL_THREAD_JOINING_CODE){
         fprintf(stderr, "Failed to join thread, status: %d, error: %s\n", status, strerror(status));
         exit(FAILED_THREAD_JOINING_EXIT_CODE);
+    }
+
+    if(retVal != PTHREAD_CANCELED){
+	    fprintf(stderr, "Thread wasn't cancelled by pthread_cancel()");
+	    exit(FAILED_THREAD_CANCELATION_EXIT_CODE);
     }
 
     printf(PARENT_THREAD_STR2);

@@ -58,10 +58,9 @@ int main(){
 	exit(FAILED_THREAD_JOINING_EXIT_CODE);
     }
 	
-
     if(retVal != PTHREAD_CANCELED){
-	fprintf(stderr, "Thread wasn't cancelled by pthread_cancel()");
-	exit(FAILED_THREAD_CANCELATION_EXIT_CODE);
+	    fprintf(stderr, "Thread wasn't cancelled by pthread_cancel()");
+	    exit(FAILED_THREAD_CANCELATION_EXIT_CODE);
     }
 	
     printf(PARENT_THREAD_STR2);
