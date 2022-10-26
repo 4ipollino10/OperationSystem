@@ -16,7 +16,9 @@ void* threadFoo2(void* arg){
     sleep(1);
     
     int status = pthread_join(*thread, NULL);
-
+    
+    printf("child thread join status = %d", status);
+    
     if(status != 0){
         printf("error: %s\n", strerror(status));
     }
@@ -33,6 +35,8 @@ int main(){
     sleep(1);
 
     int status = pthread_join(thread1, NULL);
+    
+    printf("main thread join status = %d", status);
     
     if(status != 0){
         printf("error: %s\n", strerror(status));
