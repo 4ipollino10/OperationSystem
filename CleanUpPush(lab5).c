@@ -27,11 +27,14 @@ void onExit(void* args){
 
 void* threadFoo(void* args){
     pthread_cleanup_push(onExit, NULL);
+    
     while(TRUE_STATMENT){
         printf(THREAD_STR);
         pthread_testcancle();
     }
+    
     pthread_cleanup_pop();
+    
     pthread_exit(0);
 }
 
