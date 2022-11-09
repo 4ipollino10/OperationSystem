@@ -6,6 +6,7 @@
 #include <errno.h>
 
 #define MAX_STR_AMOUNT 100
+#define MAX_THREADS_AMOUNT 100
 #define COFFICIENT 100000
 
 #define SUCCESSFULL_PROGRAMM_EXIT_CODE 0
@@ -40,7 +41,7 @@ int readStrings(char** strings, int* strCounter){
     int readSymbols = 2;
     int strIndex = 0;
     
-    size_t strLength = 100;
+    size_t strLength = 0;
 
     printf("Type your string here.\npress 'Enter' to start sort")
     
@@ -86,15 +87,7 @@ int main(){
         return ERROR_PROGRAMM_EXIT_CODE;
     }
 
-    pthread_t *threads = malloc(sizeof(pthread_t) * strCounter);
-
-    if(threads == NULL){
-        fprintf(stderr, "malloc() error: %s\n", strerror(errno));
-        
-        freeStrings(strings, strCounter);
-        
-        return ERROR_PROGRAMM_EXIT_CODE;
-    }
+    pthread_t threads[MAX_THREAD_AMOUNT];
     
     printf("starting sort...\n");
     
@@ -117,7 +110,6 @@ int main(){
     }
 
     freeStrings(strings, strCounter);
-    free(threads);
 
     return SUCCESSFULL_PROGRAMM_EXIT_CODE;
 }
