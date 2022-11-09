@@ -12,10 +12,11 @@
 #define SUCCESSFULL_THREAD_CREATION_CODE 0
 #define SUCCESSFULL_THREAD_JOINING_CODE 0
 #define SUCCESSFULL_SLEEP_CODE 0
+#define SUCCESSFULL_READ_CODE 0
 
 #define ERROR_PROGRAMM_EXIT_CODE -1
 #define ERROR_GETLINE_CODE -1
-#define ERROR_EXIT_READ_CODE -1
+#define ERROR_READ_CODE -1
 
 void* printString(void* arg){
     int status = usleep(COFFICIENT * strlen((char *)arg));
@@ -35,7 +36,7 @@ void freeStrings(char** strings, int strCounter){
     }
 }
 
-int readStrings(char** strings){
+int readStrings(char** strings, int* strCounter){
     int readSymbols = 2;
     int strIndex = 0;
     
@@ -47,21 +48,27 @@ int readStrings(char** strings){
         if(readSymbols == ERROR_GETLINE_CODE){
             fprintf(stderr, "getline() error: %s\n", strerror(errno));
             
-            return ERROR_EXIT_READ_CODE;
+            *strCounter = strIndex;
+
+            return ERROR_READ_CODE;
         }
 
         strIndex++;
     }
 
-    return  strIndex--;
+    *strCounter = --strIndex;
+
+    return SUCCESSFULL_READ_CODE;
 }
 
 int main(){
     char* strings[MAX_STR_AMOUNT];
 
-    int strCounter = readStrings(strings);
+    int strCounter;
 
-    if(strCounter == ERROR_EXIT_READ_CODE){
+    int status = readStrings(strings, &strCounter);
+
+    if(status == ERROR_READ_CODE){
         freeStrings(strings, strCounter);
         
         return ERROR_PROGRAMM_EXIT_CODE;
