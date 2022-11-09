@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <string.h>
 
 #define FAILED_THREAD_CREATION_CODE -1
 #define FAILED_THREAD_JOINING_CODE -1
@@ -26,7 +27,7 @@ int main() {
 	int status = pthread_create(&thread, NULL, threadFoo, NULL);
 
     if (status != SUCCESSFUL_THREAD_CREATION_CODE) {
-        fprintf(stderr, "Failed to create thread %d: %s \n", status, strerror(status));
+        fprintf(stderr, "Failed to create thread, status: %d, error: %s \n", status, strerror(status));
         exit(FAILED_THREAD_CREATION_CODE);
     }
 
@@ -34,7 +35,7 @@ int main() {
     status = pthread_join(thread, &status_addr);
 
     if (status != SUCCESSFUL_THREAD_JOINING_CODE) {
-        fprintf(stderr, "Failed to join thread %d: %s\n", status, strerror(status));
+        fprintf(stderr, "Failed to join thread, status: %d, error: %s\n", status, strerror(status));
         exit(FAILED_THREAD_JOINING_CODE);
     }
 
