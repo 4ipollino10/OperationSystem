@@ -95,7 +95,9 @@ int main(){
         
         return ERROR_PROGRAMM_EXIT_CODE;
     }
-
+    
+    printf("starting sort...\n");
+    
     for(int i = 0; i < strCounter; ++i){
         int status = pthread_create(&threads[i], NULL, printString, strings[i]);
         
