@@ -15,11 +15,12 @@
 
 #define TRUE_STATMENT 1
 #define THREAD_STR "Child thread\n"
-#define THREAD_TERIMATING_STR "Thread %lu is terminated\n"
+#define THREAD_TERIMATING_STR "OnExitFoo: Thread %lu is terminated\n"
 #define SLEEP_TIME 2
+#define EXECUTE 1
 
-#define PARENT_THREAD_STR1 "Starting cancellation\n"
-#define PARENT_THREAD_STR2 "Child thread has been cancelled\n"
+#define PARENT_THREAD_STR1 "Main: Starting cancellation\n"
+#define PARENT_THREAD_STR2 "Main: Child thread has been cancelled\n"
 
 void onExit(void* args){
     printf(THREAD_TERIMATING_STR, pthread_self());
@@ -33,7 +34,7 @@ void* threadFoo(void* args){
         pthread_testcancel();
     }
     
-    pthread_cleanup_pop();
+    pthread_cleanup_pop(EXECUTE);
     
     pthread_exit(0);
 }
@@ -59,9 +60,9 @@ int main(){
         exit(FAILED_THREAD_CANCELATION_EXIT_CODE);
     }
 
-    void* retval;
+    void* retVal;
 
-    status = pthread_join(thread, &retval);
+    status = pthread_join(thread, &retVal);
 
     if(status != SUCCESSFUL_THREAD_JOINING_CODE){
         fprintf(stderr, "Failed to join thread, status: %d, error: %s\n", status, strerror(status));
