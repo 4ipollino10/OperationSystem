@@ -72,7 +72,7 @@ int joinThreads(int amountOfThreads, pthread_t* threads, sumArgs* threadArgs, do
 {
     int retVal = SUCCESS_CODE;
 
-    for(int i; i < amountOfThreads; ++i)
+    for(int i = 0; i < amountOfThreads; ++i)
     {
         int status = pthread_join(threads[i], NULL);
 
