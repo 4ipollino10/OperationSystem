@@ -12,7 +12,7 @@
 
 #define STR_COUNT 10
 
-typedef struct threadAargs
+typedef struct threadArgs
 {
     const char* str;
 }threadArgs;
@@ -66,7 +66,7 @@ int initMutexes()
 
     for(int i = 0; i < AMOUNT_OF_MUTEXES; ++i)
     {
-        status = ptread_mutex_init(&mutexArr[i], &mutexAttr);
+        status = pthread_mutex_init(&mutexArr[i], &mutexAttr);
         if(status != SUCCESS_CODE)
         {
             fprintf(stderr, "Failed to initialize mutex, status: %d, error: %s\n", status, strerror(status));
@@ -83,14 +83,14 @@ void destroyMutexes()
         int status = pthread_mutex_destroy(&mutexArr[i]);
         if(status != SUCCESS_CODE)
         {
-            fprintf(stderr, "Failed to destroy mutex, status: %s, error: %s\n", status, strerror(status));
+            fprintf(stderr, "Failed to destroy mutex, status: %d, error: %s\n", status, strerror(status));
         }
     }
 }
 
 void* printText(void* args)
 {
-    threadAargs* arg = (threadAargs*)args;
+    threadArgs* arg = (threadArgs*)args;
 
     int lockStatus, unlockStatus;
     int curMutex = START_MUTEX;
