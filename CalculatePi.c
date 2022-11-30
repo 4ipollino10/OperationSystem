@@ -51,7 +51,7 @@ int checkInput(int amountOfArgs, char* amountOfThreadsArg)
 
     char* endptr;
 
-    int amountOfTreads = (int)strtol(amountOfThreadsArg, &endptr, RADIX);
+    int amountOfThreads = (int)strtol(amountOfThreadsArg, &endptr, RADIX);
     
     if(*endptr != STR_END_SYMBOL)
     {
@@ -59,13 +59,13 @@ int checkInput(int amountOfArgs, char* amountOfThreadsArg)
         return ERROR_CODE;
     }
 
-    if(amountOfThreadsArg < MIN_AMOUNT_OF_THREADS || amountOfThreadsArg > MAX_AMOUNT_OF_THREADS)
+    if(amountOfThreads < MIN_AMOUNT_OF_THREADS || amountOfThreads > MAX_AMOUNT_OF_THREADS)
     {
         printf("Expected an integer number between 1 and 30000 inclusive");
         return ERROR_CODE;
     }
 
-    return amountOfTreads;
+    return amountOfThreads;
 }
 
 int joinThreads(int amountOfThreads, pthread_t* threads, sumArgs* threadArgs, double* pi)
