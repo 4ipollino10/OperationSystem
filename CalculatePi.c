@@ -64,7 +64,13 @@ int checkInput(int amountOfArgs, char* amountOfThreadsArg)
         printf("Expected an integer number between 1 and 30000 inclusive\n");
         return ERROR_CODE;
     }
-
+    
+    if(amountOfThreads > NUM_OF_STEPS)
+    {
+        printf("Please enter a num less then NUM_OF_STEPS = %d\n", NUM_OF_STEPS);
+        return ERROR_CODE;
+    }
+    
     return amountOfThreads;
 }
 
