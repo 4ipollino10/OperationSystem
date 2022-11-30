@@ -45,7 +45,7 @@ int checkInput(int amountOfArgs, char* amountOfThreadsArg)
 {
     if(amountOfArgs != CORRECT_AMOUNT_OF_ARGS)
     {
-        printf("Expected 'one' argument\nUsing:\nEnter an integer num - amount of threads between 1 and 30000 inclusive.");
+        printf("Expected 'one' argument\nUsing:\nEnter an integer num - amount of threads between 1 and 30000 inclusive.\n");
         return ERROR_CODE;
     }
 
@@ -55,13 +55,13 @@ int checkInput(int amountOfArgs, char* amountOfThreadsArg)
     
     if(*endptr != STR_END_SYMBOL)
     {
-        printf("Expected argument type is 'integer'\nUsing:\nEnter an integer num - amount of threads between 1 and 30000 inclusive.");
+        printf("Expected argument type is 'integer'\nUsing:\nEnter an integer num - amount of threads between 1 and 30000 inclusive.\n");
         return ERROR_CODE;
     }
 
     if(amountOfThreads < MIN_AMOUNT_OF_THREADS || amountOfThreads > MAX_AMOUNT_OF_THREADS)
     {
-        printf("Expected an integer number between 1 and 30000 inclusive");
+        printf("Expected an integer number between 1 and 30000 inclusive\n");
         return ERROR_CODE;
     }
 
