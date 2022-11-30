@@ -92,7 +92,7 @@ int initThreads(int amountOfThreads, pthread_t* threads, sumArgs* threadsArgs)
     int iterationForThread = NUM_OF_STEPS / amountOfThreads;
     int residualIterations = NUM_OF_STEPS % amountOfThreads;
 
-    for(int i = 0; i < amountOfThreads: ++i)
+    for(int i = 0; i < amountOfThreads; ++i)
     {
         threadsArgs[i].startIndex = i * iterationForThread;
         threadsArgs[i].endIndex = threadsArgs[i].startIndex + iterationForThread;
@@ -144,7 +144,7 @@ int calculatePi(int amountOfThreads, double* pi)
 
 int main(int argc, char** argv)
 {
-    int retVal = checkInput(argc, argv[AMOUNT_OF_THREADS_ARG])
+    int retVal = checkInput(argc, argv[AMOUNT_OF_THREADS_ARG]);
     if(retVal == ERROR_CODE)
     {
         return EXIT_FAILURE;       
