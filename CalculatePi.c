@@ -122,6 +122,11 @@ int initThreads(int amountOfThreads, pthread_t* threads, sumArgs* threadsArgs)
 
 int calculatePi(int amountOfThreads, double* pi)
 {
+    if(amountOfThreads > NUM_OF_STEPS)
+    {
+        amountOfThreads = NUM_OF_STEPS;
+    }
+    
     pthread_t threads[amountOfThreads];
     sumArgs threadArgs[amountOfThreads];
 
