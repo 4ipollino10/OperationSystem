@@ -50,7 +50,8 @@ int destroySems()
         }
 
         int destroyCode = sem_destroy(&semaphores[i]);
-        if(destroyCode != SUCCES_CODE){
+        if(destroyCode != SUCCES_CODE)
+        {
             perror("Semaphore destruction error");
             return ERROR_CODE;
         }
