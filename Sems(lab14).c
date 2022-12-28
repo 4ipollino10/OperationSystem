@@ -91,11 +91,11 @@ void* printText(void* args)
     int curSem = 0;
     int nextSem = 0;
 
+    curSem = (arg->startSemaphoreIndex + 1) % AMOUNT_OF_SEMAPHORES;
+    nextSem = (curSem + 1) % AMOUNT_OF_SEMAPHORES;
+    
     for(int i = 0; i < AMOUNT_OF_STRS; ++i)
     {
-        curSem = (arg->startSemaphoreIndex + 1) % AMOUNT_OF_SEMAPHORES;
-        nextSem = (curSem + 1) % AMOUNT_OF_SEMAPHORES;
-
         int waitSemCode = semaphoreWait(curSem);
         if(waitSemCode != SUCCES_CODE)
         {
